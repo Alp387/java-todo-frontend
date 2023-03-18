@@ -8,20 +8,29 @@ import java.util.*;
 @Repository
 public class ToDoRepository {
 
-    Map<String,ToDo> toDoMap= new HashMap<>();
+    Map<String, ToDo> toDoMap = new HashMap<>();
 
-    public List<ToDo> list(){
+    public List<ToDo> list() {
         return new ArrayList<>(toDoMap.values());
     }
-    public ToDo getById(String id){
+
+    public ToDo getById(String id) {
         return toDoMap.get(id);
     }
 
 
-    public void addToDo(String description) {
-        String id= UUID.randomUUID().toString();
-        System.out.println("id created");
-        toDoMap.put(id,new ToDo(id,description,ToDoStatus.OPEN));
-        System.out.println("toDo created");
+    public ToDo addToDo(ToDo todo) {
+        toDoMap.put(todo.id(), todo);
+        return todo;
+    }
+
+    public ToDo update(ToDo updatedToDo, String id) {
+        //String newId = UUID.randomUUID().toString();
+        //toDoMap.remove(id);
+        toDoMap.put(id, updatedToDo);
+        return toDoMap.get(id);
+
+//        toDoMap.put(id,updatedToDo);
+//        return toDoMap.get(id);
     }
 }

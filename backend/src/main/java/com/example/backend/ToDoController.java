@@ -10,30 +10,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/todo")
 public class ToDoController {
-private final ToDoService toDoService;
+    private final ToDoService toDoService;
+
     @GetMapping("")
-    public List<ToDo> listAllToDoTasks(){
-return toDoService.listAllToDos();
+    public List<ToDo> listAllToDoTasks() {
+        return toDoService.listAllToDos();
     }
-//
-//    @GetMapping("/board/doing")
-//    public List<ToDo> listAllDoingTasks(){
-//        return null;
-//    }
-//    @GetMapping ("/board/done")
-//    public List<ToDo> listAllDoneTasks(){
-//        return null;
-//    }
 
     @PostMapping
-    public void addTodo(@RequestBody String description){
-        toDoService.addToDo(description);
-
-
+    public ToDo addTodo(@RequestBody ToDo todo) {
+        return toDoService.addToDo(todo);
     }
+
     @GetMapping("{id}")
-    public ToDo getToDoById(@PathVariable String id){
-        return toDoService.getToDoById(id);
+    public String getToDoById(@PathVariable String id) {
+        return toDoService.getToDoById(id).description();
     }
 
+    @PutMapping("{id}")
+    public ToDo updateToDo(@RequestBody ToDo updatedToDo, @PathVariable String id) {
+        return toDoService.update(updatedToDo, id);
+    }
 }
